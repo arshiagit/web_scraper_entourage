@@ -1,6 +1,17 @@
 # app/utils.py
-def split_text_into_chunks(text: str, chunk_size: int = 500) -> list:
-    """
-    Splitst de tekst in kleine stukken (chunks) van een opgegeven grootte.
-    """
-    return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+import re
+def split_text_into_chunks(text: str, max_chunk_size: int = 500) -> list:
+    sentences = re.split(r'(?<=[.!?]) +', text)
+    chunks = []
+    current_chunk = ""
+
+    for sentence in sentences:
+        if len(current_chunk) + len(sentence) <= max_chunk_size:
+            current_chunk += sentence + " "
+        else:
+            chunks.append(current_chunk.strip())
+            current_chunk = sentence + " "
+    if current_chunk:
+        chunks.append(current_chunk.strip())
+    
+    return chunks
