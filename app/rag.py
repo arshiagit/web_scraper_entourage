@@ -28,7 +28,7 @@ def generate_answer(query: str, context_chunks: list, max_tokens: int = 150) -> 
     try:
         # Correcte API aanroep voor nieuwere OpenAI client versies
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",  # Verander naar gpt-3.5-turbo omdat je quota issues had met gpt-4
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "Je bent een behulpzame assistent."},
                 {"role": "user", "content": prompt}
